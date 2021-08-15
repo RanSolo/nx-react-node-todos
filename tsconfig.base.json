@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@vecterform-challenge/data": ["libs/data/src/index.ts"]
+      "@vecterform-challenge/data": ["libs/data/src/index.ts"],
+      "@vecterform-challenge/ui": ["libs/ui/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
