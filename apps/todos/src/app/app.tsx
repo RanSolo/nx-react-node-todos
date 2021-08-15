@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Todo } from '@myorg/data';
-import { Todos } from '@myorg/ui';
+import { Todo } from '@vecterform-challenge/data';
+import { Todos } from '@vecterform-challenge/ui';
 
 const App = () => {
   const [todos, setTodos] = useState<Todo[]>([]);

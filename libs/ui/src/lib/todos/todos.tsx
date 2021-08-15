@@ -1,18 +1,14 @@
-import styled from 'styled-components';
+import React from 'react';
+import { Todo } from '@vecterform-challenge/data';
 
-/* eslint-disable-next-line */
-export interface TodosProps {}
-
-const StyledTodos = styled.div`
-  color: pink;
-`;
-
-export function Todos(props: TodosProps) {
+export const Todos = (props: { todos: Todo[] }) => {
   return (
-    <StyledTodos>
-      <h1>Welcome to Todos!</h1>
-    </StyledTodos>
+    <ul>
+      {props.todos.map((t) => (
+        <li className={'todo'}>{t.title}</li>
+      ))}
+    </ul>
   );
-}
+};
 
 export default Todos;
