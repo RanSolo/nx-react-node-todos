@@ -1,8 +1,8 @@
 import * as express from 'express';
-import { addTodoRoutes } from './app/todos';
-
+import { startDb } from './app/startup/db';
+import addTodoRoutes = require( './app/startup/routes' );
 const app = express();
-
+startDb();
 app.get( '/api', ( req, res ) => {
   res.send( { message: 'Welcome to api!' } );
 } );
