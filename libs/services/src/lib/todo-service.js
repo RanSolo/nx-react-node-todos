@@ -9,17 +9,21 @@ export const updateTodo = async ({ id, field, value }) => {
   let clonedTodo;
   let todo;
   try {
+    console.log('id', id);
     const { data } = await getTodo(id);
     todo = data;
     clonedTodo = { ...todo };
   } catch (e) {
-    console.log('e', e);
+    console.log('booteee', e.response);
   }
-  clonedTodo[field] = value;
-  delete clonedTodo._id;
-  delete clonedTodo.__v;
-  console.log('clonedTodo', clonedTodo);
-  clonedTodo.categoryId = clonedTodo.category?._id;
-  console.log('clonedTodo', clonedTodo);
-  http.put(`${endpoint}${id}`, clonedTodo);
+
+  if (clonedTodo) {
+    delete clonedTodo._id;
+    delete clonedTodo.__v;
+    console.log('clonedTodo', clonedTodo);
+    clonedTodo.categoryId = clonedTodo.category?._id;
+    console.log('clonedTodo', clonedTodo);
+    clonedTodo[field] = value;
+    http.put(`${endpoint}${id}`, clonedTodo);
+  }
 };

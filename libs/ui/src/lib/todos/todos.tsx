@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataGrid, GridToolbar } from '@material-ui/data-grid';
 import { Todo } from '@vecterform-challenge/data';
 import { updateTodo } from '@vectorform-challenge/services';
@@ -30,8 +30,18 @@ export const Todos = (props: { todos: Todo[]; updateTodos }) => {
   const updateTodoStatus = (params) => {
     updateTodo(params);
   };
+
+  const [activeTodos, setActiveTodos] = useState<number>();
+
+  useEffect(() => {
+    const totalActiveTodos = () =>
+      props.todos.filter((todo) => !todo.completed).length;
+
+    setActiveTodos(totalActiveTodos);
+  }, [activeTodos, props.todos]);
   return (
     <div style={{ height: 400, width: '100%' }}>
+      <h1>Active Tasks - {activeTodos}</h1>
       <DataGrid
         getRowId={(row) => row._id}
         rows={props.todos}

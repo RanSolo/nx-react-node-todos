@@ -56,9 +56,7 @@ export function TodoForm(props) {
       props.updateTodos(data);
       alert('success');
     } catch (error) {
-      console.log('====================================');
       console.log(error.response.details);
-      console.log('====================================');
       alert(error.response);
     }
   };
@@ -66,13 +64,14 @@ export function TodoForm(props) {
   useEffect(() => {
     const populateCategories = async () => {
       const { data: categories } = await getCategories();
+      console.log(categories);
       setCategories(categories);
     };
     populateCategories();
   }, []);
 
   return (
-    <Grid container spacing={3}>
+    <Grid container spacing={8}>
       <Grid item xs={12}>
         <h1>Add Todo</h1>
         <form onSubmit={handleSubmit}>
