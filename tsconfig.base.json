@@ -14,9 +14,14 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
+    "noImplicitAny": false,
     "paths": {
       "@vecterform-challenge/data": ["libs/data/src/index.ts"],
-      "@vecterform-challenge/ui": ["libs/ui/src/index.ts"]
+      "@vecterform-challenge/ui": ["libs/ui/src/index.ts"],
+      "@vecterform-challenge/ui/src/todos/todo-form": [
+        "libs/ui/src/todos/todo-form/src/index.ts"
+      ],
+      "@vectorform-challenge/services": ["libs/services/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

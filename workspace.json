@@ -72,6 +72,50 @@
         }
       }
     },
+    "services": {
+      "root": "libs/services",
+      "sourceRoot": "libs/services/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/services/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/services"],
+          "options": {
+            "jestConfig": "libs/services/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "todo-form": {
+      "root": "libs/ui/src/todos/todo-form",
+      "sourceRoot": "libs/ui/src/todos/todo-form/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ui/src/todos/todo-form/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui/src/todos/todo-form"],
+          "options": {
+            "jestConfig": "libs/ui/src/todos/todo-form/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "todos": {
       "root": "apps/todos",
       "sourceRoot": "apps/todos/src",

@@ -15,7 +15,6 @@ const Todo = mongoose.model(
     },
     category: {
       type: categorieschema,
-      required: true,
     },
     description: {
       type: String,
@@ -32,7 +31,7 @@ const Todo = mongoose.model(
 function validateTodo(todo) {
   const schema = Joi.object({
     task: Joi.string().min(5).max(50).required(),
-    categoryId: Joi.objectId(),
+    category: Joi.objectId(),
     description: Joi.string().min(0).required(),
     completed: Joi.boolean(),
   });

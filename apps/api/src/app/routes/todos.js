@@ -22,8 +22,12 @@ router.get('/:id/todos', async (req, res) => {
 });
 
 router.get('/:id', async (req, res) => {
-  const todo = await getTodo(req.params.id, res);
-  if (todo) res.send(todo);
+  try {
+    const todo = await getTodo(req.params.id, res);
+    if (todo) return res.send(todo);
+  } catch (e) {
+    console.log('e', e);
+  }
 });
 
 router.post('/', async (req, res) => {
@@ -42,21 +46,23 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', async (req, res) => {
-  const _id = req.params.id;
-  const { task, categoryId, description, completed } = req.body;
-  const error = validate(req.body);
+  let reqBody = { ...req.body };
+  let cat;
 
-  if (error) handle400(error, res);
-  const category = await getCategory(categoryId, res);
+  if (req.body.category) cat = await getCategory(req.body.category, res);
+
+  const _id = req.params.id;
+  const { task, description, completed } = reqBody;
+  delete reqBody.categoryId;
 
   Todo.findOneAndUpdate(
     { _id },
-    { task, category, description, completed },
+    { task, cat, description, completed },
     { new: true },
     function (error, todo) {
-      if (!todo) handle404(modelName, req.params.id, res);
-      if (todo) res.send(todo);
-      if (todo && error) res.send(error);
+      if (!todo) return handle404(res);
+      if (error) return res.send(error);
+      if (todo && error) return res.send(todo);
     }
   );
 });
@@ -64,15 +70,15 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', (req, res) => {
   Todo.findByIdAndRemove(req.params.id, function (err, todo) {
     if (err) console.error('ERROR: ', err);
-    if (!todo) handle404(modelName, req.params.id, res);
-    if (todo) res.send(todo);
+    if (!todo) return handle404(modelName, req.params.id, res);
+    if (todo && err) return res.send(err);
   });
 });
 
 const createTodo = async (reqBody, res) => {
   try {
     const category = await getCategory(reqBody.category, res);
-    reqBody.categoryName = category.name;
+    reqBody.categoryName = category?.name;
 
     return await newTodo(reqBody);
   } catch (e) {
